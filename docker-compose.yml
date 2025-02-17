@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  gophish:
+    image: gophish/gophish
+    container_name: gophish_lab
+    restart: always
+    ports:
+      - "3333:3333"  # Interfață admin Gophish
+      - "8080:80"    # Pagina de phishing
+    environment:
+      - GOPHISH_ADMIN_PASSWORD=admin123
+    volumes:
+      - gophish_data:/opt/gophish
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog_lab
+    restart: always
+    ports:
+      - "8025:8025"  # UI MailHog
+      - "1025:1025"  # SMTP pentru interceptare emailuri
+
+volumes:
+  gophish_data:
